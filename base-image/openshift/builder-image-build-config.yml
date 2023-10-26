@@ -1,0 +1,43 @@
+kind: BuildConfig
+apiVersion: build.openshift.io/v1
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: ''
+    app.openshift.io/vcs-uri: 'https://github.com/deewhyweb/custom-eap-image.git'
+  resourceVersion: '1997561'
+  name: eap-base-image
+  labels:
+    app: eap-base-image
+    app.kubernetes.io/component: eap-base-image
+    app.kubernetes.io/instance: eap-base-image
+    app.kubernetes.io/name: eap-base-image
+spec:
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'eap-base-image:latest'
+  resources: {}
+  successfulBuildsHistoryLimit: 5
+  failedBuildsHistoryLimit: 5
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  postCommit: {}
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/deewhyweb/custom-eap-image.git'
+    contextDir: /base-image
+  triggers:
+    - type: Generic
+      generic:
+        secretReference:
+          name: custom-eap-image-git-generic-webhook-secret
+    - type: GitHub
+      github:
+        secretReference:
+          name: custom-eap-image-git-github-webhook-secret
+    - type: ConfigChange
+  runPolicy: Serial

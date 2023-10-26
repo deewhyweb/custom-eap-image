@@ -1,0 +1,16 @@
+kind: ImageStream
+apiVersion: image.openshift.io/v1
+metadata:
+  annotations:
+    app.openshift.io/vcs-ref: ''
+    app.openshift.io/vcs-uri: 'https://github.com/deewhyweb/custom-eap-image.git'
+    openshift.io/generated-by: OpenShiftWebConsole
+  name: eap-app-image
+  labels:
+    app: eap-app-image
+    app.kubernetes.io/component: eap-app-image
+    app.kubernetes.io/instance: eap-app-image
+    app.kubernetes.io/name: eap-app-image
+spec:
+  lookupPolicy:
+    local: false
