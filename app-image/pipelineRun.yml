@@ -1,0 +1,27 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: build-deploy-manual-run
+spec:
+  params:
+    - name: repo-url
+      value: 'https://github.com/deewhyweb/custom-eap-image.git'
+    - name: revision
+      value: main
+    - name: context-path
+      value: app-image
+  pipelineRef:
+    name: maven-pipeline
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: shared-workspace
+      volumeClaimTemplate:
+        spec:
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1000Mi
+    - emptyDir: {}
+      name: maven-settings

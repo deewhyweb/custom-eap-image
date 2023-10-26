@@ -27,5 +27,4 @@ spec:
   postCommit: {}
   source:
     type: Binary
-
   runPolicy: Serial
