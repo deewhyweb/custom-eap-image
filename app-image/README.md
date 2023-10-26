@@ -1,1 +1,3 @@
-podman run -p 8080:8080 -e POSTGRESQL_HOSTNAME=10.22.32.46 -e POSTGRESQL_DB=postgresDB -e POSTGRESQL_USER=postgresUser -e POSTGRESQL_PASSWORD=postgresPW 7820d96b0adceb916286e8097896cbe776a1ac9ef08179dc46ae58b22c1c5bbc
+oc apply -f openshift
+
+oc start-build eap-app-image --from-dir=.

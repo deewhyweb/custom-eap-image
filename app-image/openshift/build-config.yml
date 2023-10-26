@@ -26,8 +26,6 @@ spec:
       dockerfilePath: Dockerfile
   postCommit: {}
   source:
-    type: Git
-    git:
-      uri: 'https://github.com/deewhyweb/custom-eap-image.git'
-    contextDir: /app-image
+    type: Binary
+
   runPolicy: Serial

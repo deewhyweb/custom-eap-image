@@ -9,6 +9,7 @@ EXPOSE 8080 8443 443
 ARG POSTGRES_JDBC_JAR=postgresql-42.6.0.jar
 
 ARG POSTGRES_JDBC_URL=https://jdbc.postgresql.org/download/${POSTGRES_JDBC_JAR}
+
 ARG BIN_PATH=$JBOSS_HOME/bin
 
 # Download jdbc-drivers
@@ -19,7 +20,6 @@ ADD modules /opt/eap/modules
 
 USER root
 RUN curl -s $POSTGRES_JDBC_URL -o /tmp/${POSTGRES_JDBC_JAR}
-
 
 RUN cp /tmp/${POSTGRES_JDBC_JAR} /opt/eap/modules/org/postgresql/main
 
@@ -37,14 +37,12 @@ USER jboss
 # copy server to (smaller) runtime image:
 FROM registry.redhat.io/jboss-eap-7/eap74-openjdk11-runtime-openshift-rhel8
 
-
-#recommendation from eap start:
+#Disable embedded messae broker:
 ENV DISABLE_EMBEDDED_JMS_BROKER=true
 
 COPY --from=0 /opt/eap $JBOSS_HOME
 
-# add CLI-hook for app-CLI-scripts
-# https://access.redhat.com/solutions/3911211
+# add postconfigure.sh, which will run cli scripts included in app image for runtime configuration
 COPY scripts/postconfigure.sh /opt/eap/extensions/postconfigure.sh
 
 USER root
@@ -52,6 +50,7 @@ RUN chmod 774 /opt/eap/extensions/*.sh && chown -R jboss:root $JBOSS_HOME && chm
 
 RUN ln -s $JBOSS_HOME/standalone/deployments /deployments
 
+# enable parameter values in cli commands.  Needed to enable use of env variables for cli config.
 RUN sed -i "s/<resolve-parameter-values>false<\/resolve-parameter-values>/\
 <resolve-parameter-values>true<\/resolve-parameter-values>/" \
 $JBOSS_HOME/bin/jboss-cli.xml
