@@ -87,6 +87,6 @@ spec:
         - name: SCRIPT
           value: |
             cd "$(params.context-path)"
-            cp ./target/kitchensink.war ./ROOT.war
+            cp ./target/ROOT.war ./ROOT.war
             oc project eap-test
             oc start-build eap-app-image --from-dir=. --follow
