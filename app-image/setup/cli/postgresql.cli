@@ -1,0 +1,4 @@
+
+embed-server --std-out=echo  --server-config=standalone-openshift.xml
+data-source add --name=postgresql --jndi-name=java:jboss/datasources/KSINK --driver-name=postgresql --connection-url=jdbc:postgresql://${env.POSTGRESQL_HOSTNAME}:5432/${env.POSTGRESQL_DB} --user-name=${env.POSTGRESQL_USER} --password=${env.POSTGRESQL_PASSWORD}
+quit
