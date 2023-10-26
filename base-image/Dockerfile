@@ -1,6 +1,6 @@
 FROM registry.redhat.io/jboss-eap-7/eap74-openjdk11-openshift-rhel8
 
-ENV GALLEON_PROVISION_DEFAULT_FAT_SERVER=true
+ENV GALLEON_PROVISION_LAYERS=cloud-server,ejb,jsf,h2-driver
 
 RUN /usr/local/s2i/assemble
 
