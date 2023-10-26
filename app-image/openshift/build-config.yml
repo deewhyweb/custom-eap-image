@@ -29,5 +29,5 @@ spec:
     type: Git
     git:
       uri: 'https://github.com/deewhyweb/custom-eap-image.git'
-    contextDir: /base-image
+    contextDir: /app-image
   runPolicy: Serial

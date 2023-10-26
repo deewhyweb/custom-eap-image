@@ -1,4 +1,4 @@
-ARG BASEIMAGE=eap-base-image
+ARG BASEIMAGE=image-registry.openshift-image-registry.svc:5000/eap-docker/eap-base-image
 FROM $BASEIMAGE
 
 ARG DEPLOYMENT_FILE
