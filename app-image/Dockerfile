@@ -1,4 +1,4 @@
-ARG BASEIMAGE=image-registry.openshift-image-registry.svc:5000/eap-test/eap-base-image@sha256:bd639d1fae2e4324b02b74458dcf47944ab450f3953191807905d5ff20fb6be8
+ARG BASEIMAGE=image-registry.openshift-image-registry.svc:5000/eap-test/eap-base-image@sha256:54ebee6de5ab3cd61a64cf03d28e0d1b77a60d7335a2c66902c01948adf6b467
 FROM $BASEIMAGE
 
 ARG DEPLOYMENT_FILE=ROOT.war
